@@ -9,16 +9,24 @@
         <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}" />
     </head>
     <body>
-        <div class="page-header">
-		{% if user.is_authenticated %}
+    <div class="page-header">
+        {% if user.is_authenticated %}
+        <p class="top-menu">
             <a href="{% url 'post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
-			{% endif %}
-            <h1><a href="/">DAW Blog</a></h1>
+            <a href="{% url 'post_draft_list' %}" class="top-menu"><span class="glyphicon glyphicon-edit"></span></a>
+            Hola {{ user.username }}
+            <a href="{% url 'logout' %}" class="top-menu"><span class="glyphicon glyphicon-log-out"> </span></a>
+        </p>
+        {% else %}
+        <a href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span></a>
+        {% endif %}
+        <h1><a href="/">DAW Blog</a></h1>
+    </div>
+
+    <div class="content container">
+        <div class="row">
+            <div class="col-md-8">{% block content %} {% endblock %}</div>
         </div>
-        <div class="content container">
-            <div class="row">
-                <div class="col-md-8">{% block content %} {% endblock %}</div>
-            </div>
-        </div>
-    </body>
+    </div>
+</body>
 </html>
